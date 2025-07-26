@@ -15,6 +15,6 @@ export default function Home() {
         <TodoInput />
         <TodoList />
       </div>
-    </main>
+    </main> 
   );
 }
