@@ -1,8 +1,13 @@
 import todoData from "../../todos";
-import {writeFile} from "fs/promises"
+import {readFile ,writeFile} from "fs/promises"
+
 export async function GET() {
-  return Response.json(todoData);
+  const stringifyData = await readFile('./todos.json' , "utf-8")
+  const data = JSON.parse(stringifyData)
+  return Response.json(data);
 }
+
+
 export async function POST(request){
   const todo = await request.json()
   const newTodo = {

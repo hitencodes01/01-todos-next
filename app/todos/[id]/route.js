@@ -30,13 +30,16 @@ export async function PUT(request , {params}){
   const editedTodo = {...todo , ...editedTodoData}
   todos[todoIndex] = editedTodo
   writeFile('todos.json',JSON.stringify(todos,null,2))
-  return Response.json(editedTodo)
+  return Response.json(editedTodo,{
+    status : 200
+  })
 }
 
 // delete todo code
 export async function DELETE(_,{params}){
   const {id} = await params
   const todoIndex = todos.findIndex((todo) => id === todo.id)
+
   if(!todoIndex){
     return Response.json({error : "this is does not exist"})
   }
