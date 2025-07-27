@@ -42,10 +42,14 @@ export default function TodoList() {
     if (response.status == 204) fetchTodos();
   };
 
-  const editTodo = (id, newText) => {
-    setTodos((prev) =>
-      prev.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo))
-    );
+  const editTodo = async(id, newText) => {
+     const response = await fetch(`/todos/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ text : newText }),
+    });
+    if (response.status === 200) {
+      fetchTodos();
+    }
   };
 
   return (
