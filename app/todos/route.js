@@ -12,5 +12,7 @@ export async function POST(request){
   }
   todoData.push(newTodo)
   writeFile("todos.json", JSON.stringify(todoData , null , 2))
-  return Response.json(newTodo)
+  return Response.json(newTodo , {
+    status : 201
+  })
 }

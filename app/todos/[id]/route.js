@@ -1,4 +1,3 @@
-import { error } from "console";
 import todos from "../../../todos";
 import {writeFile} from 'fs/promises'
 
@@ -26,10 +25,24 @@ export async function PUT(request , {params}){
   const todoIndex = todos.findIndex((todo)=> id === todo.id)
   const todo = todos[todoIndex]
   if(editedTodoData.id){
-    return Response.json({error : "id change does not allowed here"})
+    return Response.json({ error : "id change does not allowed here"})
   }
   const editedTodo = {...todo , ...editedTodoData}
   todos[todoIndex] = editedTodo
   writeFile('todos.json',JSON.stringify(todos,null,2))
   return Response.json(editedTodo)
+}
+
+// delete todo code
+export async function DELETE(_,{params}){
+  const {id} = await params
+  const todoIndex = todos.findIndex((todo) => id === todo.id)
+  if(!todoIndex){
+    return Response.json({error : "this is does not exist"})
+  }
+  todos.splice(todoIndex , 1)
+  writeFile("todos.json" , JSON.stringify(todos , null , 2))
+return new Response(null , {
+  status : 204
+})
 }
