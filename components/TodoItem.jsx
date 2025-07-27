@@ -19,6 +19,7 @@ export default function TodoItem({ todo, toggleCompleted, deleteTodo, editTodo }
           type="checkbox"
           checked={todo.completed}
           onChange={() => toggleCompleted(todo.id)}
+          className="text-sky-950"
         />
         {isEditing ? (
           <input
@@ -43,7 +44,7 @@ export default function TodoItem({ todo, toggleCompleted, deleteTodo, editTodo }
       <div className="flex gap-2">
         <button
           onClick={() => setIsEditing((prev) => !prev)}
-          className="text-sm text-blue-600"
+          className="text-sm text-sky-950"
         >
           {isEditing ? "Save" : "Edit"}
         </button>

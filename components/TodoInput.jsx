@@ -21,7 +21,7 @@ export default function TodoInput({ addTodo }) {
       />
       <button
         onClick={handleAdd}
-        className="bg-blue-600 text-white px-4 py-2 rounded-md"
+        className="bg-sky-950 text-white px-4 py-2 rounded-md"
       >
         Add
       </button>
