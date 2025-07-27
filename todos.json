@@ -1,7 +1,7 @@
 [
   {
     "id": "7203de66-1622-4c80-8ca5-b8d583696cbc",
-    "text": "my api",
+    "text": "maine update kiya isko",
     "completed": false
   },
   {
@@ -11,7 +11,7 @@
   },
   {
     "id": "f77b1d93-0fe1-49f8-8ea9-653b6925c0eb",
-    "text": "hitech harami hai",
-    "completed": false
+    "text": "harami",
+    "completed": true
   }
 ]
