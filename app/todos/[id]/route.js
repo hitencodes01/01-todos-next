@@ -20,7 +20,6 @@ export async function GET(_, { params }) {
 // update todo code
 export async function PUT(request , {params}){
   const editedTodoData = await request.json()
-  console.log(editedTodoData)
   const {id} = await params
   const todoIndex = todos.findIndex((todo)=> id === todo.id)
   const todo = todos[todoIndex]

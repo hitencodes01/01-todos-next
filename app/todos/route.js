@@ -1,9 +1,14 @@
 import todoData from "../../todos";
 import {readFile ,writeFile} from "fs/promises"
+import mongoose from "mongoose";
+import { connectDB } from "@/lib/connectDB";
 
 export async function GET() {
+  connectDB()
+  const result = await mongoose.connection.db.collection("todos").insertOne({ title: "Learn Node.js", completed: false })
+  console.log(result)
   const stringifyData = await readFile('./todos.json' , "utf-8")
-  const data = JSON.parse(stringifyData)
+  const data = await JSON.parse(stringifyData)
   return Response.json(data);
 }
 

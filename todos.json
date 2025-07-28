@@ -2,11 +2,21 @@
   {
     "id": "f80b47a1-0141-4379-b433-9034ec9c0d9d",
     "text": "i am hiten gupta",
-    "completed": false
+    "completed": true
   },
   {
     "id": "b88374d5-a8d6-45e4-aa17-c3c4e61292f1",
     "text": "I like pizza",
+    "completed": true
+  },
+  {
+    "id": "6a822160-1a7d-404e-a555-8e3c2df0c70c",
+    "text": "i love to hangout with my guys",
+    "completed": false
+  },
+  {
+    "id": "1f39c889-4167-4a64-b717-ff6821ac8a39",
+    "text": "i like playing football",
     "completed": false
   }
 ]
