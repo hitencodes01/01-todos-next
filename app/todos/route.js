@@ -1,15 +1,22 @@
 import todoData from "../../todos";
 import {readFile ,writeFile} from "fs/promises"
-import mongoose from "mongoose";
+import Todo from "@/models/todoModel";
 import { connectDB } from "@/lib/connectDB";
 
 export async function GET() {
-  connectDB()
-  const result = await mongoose.connection.db.collection("todos").insertOne({ title: "Learn Node.js", completed: false })
-  console.log(result)
+  await connectDB()
+  // const result = await Todo.find()
+  // console.log(result)
+  const newTodo = await Todo.create({
+    text : "learn mongodb"
+  })
+  console.log(newTodo)
+  console.log("first")
+  console.log("first")
+  console.log("second")
   const stringifyData = await readFile('./todos.json' , "utf-8")
   const data = await JSON.parse(stringifyData)
-  return Response.json(data);
+  return Response.json(newTodo);
 }
 
 
