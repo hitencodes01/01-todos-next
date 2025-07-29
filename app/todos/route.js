@@ -6,7 +6,6 @@ import { connectDB } from "@/lib/connectDB";
 export async function GET() {
   await connectDB()
   const allTodo = await Todo.find()
-  console.log(allTodo)
   return Response.json(allTodo.map(({id,text,completed}) => ({id,text,completed})))
   // const stringifyData = await readFile('./todos.json' , "utf-8")
   // const data = await JSON.parse(stringifyData)
