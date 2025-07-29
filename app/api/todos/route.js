@@ -1,4 +1,4 @@
-import todoData from "../../todos";
+// import todoData from "../../todos";
 import {readFile ,writeFile} from "fs/promises"
 import Todo from "@/models/todoModel";
 import { connectDB } from "@/lib/connectDB";

@@ -5,15 +5,21 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [name, setName] = useState("ProCodrr");
-  const [email, setEmail] = useState("procodrr@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
     // API registration logic here
-    console.log("Registering:", { name, email, password });
-    router.push("/login");
+    const response = await fetch("/api/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+    });
+    const data = await response.json()
+    if(!data.error){
+      router.push("/login");
+    }
   };
 
   return (
@@ -69,6 +75,7 @@ export default function RegisterPage() {
             Register
           </button>
         </form>
+        <p></p>
       </div>
     </div>
   );
