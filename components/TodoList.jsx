@@ -18,8 +18,14 @@ export default function TodoList() {
   const addTodo = async (text) => {
     const response = await fetch("/api/todos", {
       method: "POST",
-      body: JSON.stringify({ text }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({text}),
     });
+    if(response.status !== 201){
+      console.log("wrong")
+    }
     const newTodo = await response.json();
     setTodos([...todos, newTodo]);
   };
@@ -42,10 +48,10 @@ export default function TodoList() {
     if (response.status == 204) fetchTodos();
   };
 
-  const editTodo = async(id, newText) => {
-     const response = await fetch(`/api/todos/${id}`, {
+  const editTodo = async (id, newText) => {
+    const response = await fetch(`/api/todos/${id}`, {
       method: "PUT",
-      body: JSON.stringify({ text : newText }),
+      body: JSON.stringify({ text: newText }),
     });
     if (response.status === 200) {
       fetchTodos();
@@ -58,7 +64,6 @@ export default function TodoList() {
       <ul className="mt-4 space-y-3">
         {todos.map((todo) => (
           <TodoItem
-            key={todo.id}
             todo={todo}
             toggleCompleted={toggleCompleted}
             deleteTodo={deleteTodo}

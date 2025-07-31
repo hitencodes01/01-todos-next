@@ -4,13 +4,26 @@ import { useState } from "react";
 
 export default function Login() {
   const router = useRouter();
-  const [email, setEmail] = useState("xnxx@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("logging in ", { email, password });
-    router("/dashboard");
+    const response = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify({  email, password }),
+    });
+    const data = await response.json()
+    if(response.status === 401){
+      router.push('/login')
+    }
+    if(!data.error){
+      router.push("/");
+    }
   };
+
+  
   return (
     <div className="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6">
       <div className="w-full max-w-lg">

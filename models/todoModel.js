@@ -9,6 +9,9 @@ const Todo = mongoose.models.Todo || mongoose.model("Todo" ,{
         type : Boolean ,
         required : true ,
         default : false
+    },
+    userID : {
+        type : mongoose.Schema.Types.ObjectId,
     }
 })
 
