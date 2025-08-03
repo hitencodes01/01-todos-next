@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 import TodoInput from "./TodoInput";
+import { useRouter } from "next/navigation";
 
 export default function TodoList() {
+  const router = useRouter()
   const [todos, setTodos] = useState([]);
   useEffect(() => {
     fetchTodos();
@@ -12,7 +14,12 @@ export default function TodoList() {
   const fetchTodos = async () => {
     const response = await fetch("/api/todos");
     const data = await response.json();
-    setTodos(data);
+    if(response.status === 401){
+      router.push("/login")
+    }
+    if(!data.error){
+      setTodos(data)
+    }
   };
 
   const addTodo = async (text) => {
@@ -23,9 +30,6 @@ export default function TodoList() {
       },
       body: JSON.stringify({text}),
     });
-    if(response.status !== 201){
-      console.log("wrong")
-    }
     const newTodo = await response.json();
     setTodos([...todos, newTodo]);
   };
@@ -64,6 +68,7 @@ export default function TodoList() {
       <ul className="mt-4 space-y-3">
         {todos.map((todo) => (
           <TodoItem
+          key={todo.id}
             todo={todo}
             toggleCompleted={toggleCompleted}
             deleteTodo={deleteTodo}
