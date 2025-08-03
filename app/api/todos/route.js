@@ -1,51 +1,28 @@
 import Todo from "@/models/todoModel";
 import { connectDB } from "@/lib/connectDB";
-import { cookies } from "next/headers";
-import User from "@/models/userModel";
-
+import { getLoggedInUser } from "@/lib/auth";
 
 export async function GET() {
   await connectDB();
-  const cookieStore = await cookies();
-  const userID =  cookieStore.get("userID")?.value;
-  const user = await User.findById(userID);
-  if (!user) {
-    window.alert("please login")
-    return Response.json(
-      { error: "Please Login" },
-      {
-        status: 401,
-      }
-    );
-  }
-  const allTodo = await Todo.find({ userID });
+  const user = await getLoggedInUser();
+  if (user instanceof Response) return user;
+  const allTodo = await Todo.find({ userID: user.id });
   return Response.json(
     allTodo.map(({ id, text, completed }) => ({ id, text, completed }))
   );
 }
 
-
 export async function POST(request) {
-  const cookieStore = await cookies();
-  const userID =  cookieStore.get("userID")?.value;
-  const user = await User.findById(userID);
-  if (!user) {
-    window.alert("please login")
-    return Response.json(
-      { error: "Please Login" },
-      {
-        status: 401,
-      }
-    );
-  }
+  connectDB();
+  const user = await getLoggedInUser();
+  if (user instanceof Response) return user;
   const todo = await request.json();
-  const { id, text, completed , userId } = await Todo.create({
+  const { id, text, completed, userId } = await Todo.create({
     text: todo.text,
-    userID
+    userID: user.id,
   });
-
   return Response.json(
-    { id, text, completed , userId },
+    { id, text, completed, userId },
     {
       status: 201,
     }

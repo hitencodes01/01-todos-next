@@ -5,7 +5,7 @@ import TodoInput from "./TodoInput";
 import { useRouter } from "next/navigation";
 
 export default function TodoList() {
-  const router = useRouter()
+  const router = useRouter();
   const [todos, setTodos] = useState([]);
   useEffect(() => {
     fetchTodos();
@@ -14,11 +14,11 @@ export default function TodoList() {
   const fetchTodos = async () => {
     const response = await fetch("/api/todos");
     const data = await response.json();
-    if(response.status === 401){
-      router.push("/login")
+    if (response.status === 401) {
+      router.push("/login");
     }
-    if(!data.error){
-      setTodos(data)
+    if (!data.error) {
+      setTodos(data);
     }
   };
 
@@ -28,8 +28,11 @@ export default function TodoList() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({text}),
+      body: JSON.stringify({ text }),
     });
+    if (response.status === 201) {
+      router.push("/login");
+    }
     const newTodo = await response.json();
     setTodos([...todos, newTodo]);
   };
@@ -66,15 +69,19 @@ export default function TodoList() {
     <>
       <TodoInput addTodo={addTodo} />
       <ul className="mt-4 space-y-3">
-        {todos.map((todo) => (
-          <TodoItem
-          key={todo.id}
-            todo={todo}
-            toggleCompleted={toggleCompleted}
-            deleteTodo={deleteTodo}
-            editTodo={editTodo}
-          />
-        ))}
+        {todos.length === 0 ? (
+          <p>No todos found.</p>
+        ) : (
+          todos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              toggleCompleted={toggleCompleted}
+              deleteTodo={deleteTodo}
+              editTodo={editTodo}
+            />
+          ))
+        )}
       </ul>
     </>
   );
