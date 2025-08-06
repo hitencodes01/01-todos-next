@@ -8,7 +8,7 @@ export async function GET() {
   if (user instanceof Response) return user;
   const allTodo = await Todo.find({ userID: user.id });
   return Response.json(
-    allTodo.map(({ id, text, completed }) => ({ id, text, completed }))
+    allTodo.map(({ id, text, completed }) => ({ id, text, completed })),
   );
 }
 
@@ -22,7 +22,7 @@ export async function POST(request) {
     userID: user.id,
   });
   return Response.json(
-    { id, text, completed, userId },
+    { id, text, completed, userId},
     {
       status: 201,
     }

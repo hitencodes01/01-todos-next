@@ -30,7 +30,7 @@ export default function TodoList() {
       },
       body: JSON.stringify({ text }),
     });
-    if (response.status === 201) {
+    if (response.status !== 201) {
       router.push("/login");
     }
     const newTodo = await response.json();

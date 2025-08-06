@@ -1,6 +1,8 @@
 import { connectDB } from "@/lib/connectDB";
 import User from "@/models/userModel";
 import { cookies } from "next/headers";
+import { signCookie } from "@/lib/auth";
+
 
 export async function POST(request) {
   await connectDB();
@@ -15,10 +17,13 @@ export async function POST(request) {
       }
     );
   }
-  cookieStore.set("userID", user.id, {
+  const signatureId = signCookie(user.id)
+  cookieStore.set("userID", signatureId, {
     httpOnly: true,
+    maxAge: 60 * 60 * 24,
   });
   return Response.json(user, {
     status: 200,
   });
 }
+

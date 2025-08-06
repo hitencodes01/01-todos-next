@@ -15,7 +15,7 @@ export default function Login() {
       body: JSON.stringify({  email, password }),
     });
     const data = await response.json()
-    if(response.status === 401){
+    if(response.status !== 401){
       router.push('/login')
     }
     if(!data.error){
