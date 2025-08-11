@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import User from "./User";
 
 
 export default function TodoInput({ addTodo }) {
@@ -75,7 +76,7 @@ export default function TodoInput({ addTodo }) {
           className="py-2 rounded-full hover:bg-muted transition-colors cursor-pointer"
           aria-label="User menu"
         >
-          User
+          <User />
         </button>
         {showUserMenu && (
           <div className="absolute right-0 mt-2 max-w-48 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 p-4 shadow-lg z-10 text-gray-900 dark:text-gray-100">
