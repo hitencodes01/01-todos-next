@@ -61,15 +61,16 @@ export default function TodoInput({ addTodo }) {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && handleAdd()}
         placeholder="Enter new task"
         className="flex-grow border p-2 rounded-md text-black"
       />
-      <button
+      {/* <button
         onClick={handleAdd}
-        className="bg-sky-950 text-white px-4 py-2 rounded-md"
+        className="bg-sky-950 text-white px-1 py-1 rounded-md"
       >
         Add
-      </button>
+      </button> */}
       <div className="relative" ref={menuRef}>
         <button
           onClick={() => setShowUserMenu(!showUserMenu)}
